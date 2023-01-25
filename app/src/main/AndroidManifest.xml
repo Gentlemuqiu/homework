@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Homework"
         tools:targetApi="31">
         <activity
+            android:name=".childActivity.article"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Util.webView"
             android:exported="false">
             <meta-data

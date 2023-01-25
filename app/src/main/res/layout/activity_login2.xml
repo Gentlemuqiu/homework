@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_200"
@@ -9,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="WanAndroid"
+        android:text="RedRock"
         android:textSize="40sp" />
 
     <ImageView
@@ -36,7 +37,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/et_password"
@@ -45,6 +47,7 @@
             android:background="@drawable/edit"
             android:drawableLeft="@drawable/ic_baseline_key_24"
             android:gravity="center"
+            android:inputType="textPassword"
             android:hint="密码" />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
