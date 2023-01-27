@@ -56,7 +56,6 @@ public class loginActivity extends AppCompatActivity {
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(result);
-
                     int errorCode = jsonObject.getInt("errorCode");
                     String errorMeg = jsonObject.getString("errorMsg");
                     if (errorCode == 0) {

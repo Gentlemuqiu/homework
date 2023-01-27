@@ -12,9 +12,9 @@ import java.util.HashMap;
 public class NetWorkPost {
     public static String sendPostNetRequest(String mUrl, HashMap<String, String> params) {
         BufferedReader reader1;
-        StringBuilder builder=null;
-        InputStream inputStream=null;
-        OutputStream outputStream=null;
+        StringBuilder builder = null;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
         try {
             URL url = new URL(mUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -43,18 +43,64 @@ public class NetWorkPost {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(outputStream!=null){
+        } finally {
+            if (outputStream != null) {
                 try {
                     outputStream.close();
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if(inputStream!=null){
+            if (inputStream != null) {
                 try {
                     outputStream.close();
-                }catch (IOException e){
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return builder.toString();
+    }
+
+    public static String sendPost(String mUrl) {
+        BufferedReader reader1;
+        StringBuilder builder = null;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            URL url = new URL(mUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");//设置请求方式为POST
+            connection.setConnectTimeout(5000);//设置最大连接时间，单位为毫
+            connection.setReadTimeout(5000);//设置最大的读取时间，单位为毫秒，
+            connection.setDoOutput(true);//允许输入流
+            connection.setDoInput(true);//允许输出流
+            outputStream = connection.getOutputStream();
+            //从接口处获取输入
+            inputStream = connection.getInputStream();
+            reader1 = new BufferedReader(new InputStreamReader(inputStream));
+            //从BufferedReader中读取String字符串
+            String line;
+            builder = new StringBuilder();
+            while ((line = reader1.readLine()) != null) {
+                builder.append(line);
+                builder.append("\n");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

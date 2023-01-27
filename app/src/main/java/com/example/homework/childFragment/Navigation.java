@@ -2,7 +2,6 @@ package com.example.homework.childFragment;
 
 import static com.example.homework.Util.NetWorkGet.doGet;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,13 +69,6 @@ public class Navigation extends Fragment {
         netLoadNav();
         mRecyclerViewLeft.setAdapter(mNavLeftAdapter);
         mRecyclerViewLeft.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerViewLeft.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(0,10,0,10);
-            }
-        });
         mRecyclerViewLeft.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
     }
 
