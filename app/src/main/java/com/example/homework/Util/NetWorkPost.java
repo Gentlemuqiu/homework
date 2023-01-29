@@ -1,5 +1,7 @@
 package com.example.homework.Util;
 
+import com.example.homework.login.loginActivity;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,6 +75,7 @@ public class NetWorkPost {
             connection.setRequestMethod("POST");//设置请求方式为POST
             connection.setConnectTimeout(5000);//设置最大连接时间，单位为毫
             connection.setReadTimeout(5000);//设置最大的读取时间，单位为毫秒，
+            connection.addRequestProperty("Cookie",String.valueOf(loginActivity.cookies));
             connection.setDoOutput(true);//允许输入流
             connection.setDoInput(true);//允许输出流
             outputStream = connection.getOutputStream();

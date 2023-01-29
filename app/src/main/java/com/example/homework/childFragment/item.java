@@ -131,13 +131,14 @@ public class item extends Fragment implements AdapterView.OnItemSelectedListener
     }
 
     private void upDataUIChildItem(itemChildBean itemChildBean) {
+        if(getActivity()!=null){
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mItemAdapter.setData(itemChildBean);
             }
         });
-    }
+    }}
 
 
     @Override

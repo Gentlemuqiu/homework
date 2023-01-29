@@ -19,9 +19,10 @@ public class NetWorkGet {
             urlConnection = (HttpURLConnection) requestUrl.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Charset", "utf-8");
-            urlConnection.setConnectTimeout(5000);
+            //  urlConnection.addRequestProperty("Cookie", String.valueOf(loginActivity.cookies));
+            urlConnection.setConnectTimeout(3000);
             urlConnection.connect();
-            if (urlConnection.getResponseCode()==200) {
+            if (urlConnection.getResponseCode() == 200) {
                 //获取二进制流
                 inputStream = urlConnection.getInputStream();
                 //3.将二进制流包装
@@ -40,8 +41,8 @@ public class NetWorkGet {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if(inputStream!=null){
+        } finally {
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
@@ -53,3 +54,4 @@ public class NetWorkGet {
         return json;
     }
 }
+

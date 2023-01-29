@@ -120,12 +120,14 @@ public class search extends Fragment {
     }
 
     private void upDateUISearch(searchBean searchBean) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mSearchAdapter.setData(searchBean);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mSearchAdapter.setData(searchBean);
+                }
+            });
+        }
     }
 
     private void initRecyclerView(View view) {

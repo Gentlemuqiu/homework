@@ -69,7 +69,7 @@ public class account extends Fragment {
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return(1+position) %5 ==0 ?2:1;
+                return (1 + position) % 5 == 0 ? 2 : 1;
             }
         });
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -90,11 +90,13 @@ public class account extends Fragment {
     }
 
     private void upAccountDateUI(basicAccountBean basicAccountBean) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mBasicAccountAdapter.setDate(basicAccountBean);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mBasicAccountAdapter.setDate(basicAccountBean);
+                }
+            });
+        }
     }
 }

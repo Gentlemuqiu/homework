@@ -34,6 +34,7 @@ public class home extends Fragment {
     private homeVPAdapter mHomeVPAdapter;
     private RecyclerView mRecyclerView;
     private homeRVAdapter mHomeRVAdapter;
+
     public home() {
     }
 
@@ -68,8 +69,8 @@ public class home extends Fragment {
         mHomeVPAdapter = new homeVPAdapter();
         netLoadBanner();
         mViewPager.setAdapter(mHomeVPAdapter);
-        mRecyclerView=view.findViewById(R.id.rv_home);
-        mHomeRVAdapter=new homeRVAdapter();
+        mRecyclerView = view.findViewById(R.id.rv_home);
+        mHomeRVAdapter = new homeRVAdapter();
         netLoadHome();
         netLoadHomeTop();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -78,37 +79,38 @@ public class home extends Fragment {
     }
 
     private void netLoadHomeTop() {
-        String url="https://www.wanandroid.com/article/top/json";
+        String url = "https://www.wanandroid.com/article/top/json";
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String result=doGet(url);
-                Gson gson=new Gson();
-                homePagerTop homePagerTop=gson.fromJson(result, homePagerTop.class);
+                String result = doGet(url);
+                Gson gson = new Gson();
+                homePagerTop homePagerTop = gson.fromJson(result, homePagerTop.class);
                 updateUIHomePagerTop(homePagerTop);
             }
         }).start();
     }
 
     private void updateUIHomePagerTop(homePagerTop homePagerTop) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mHomeRVAdapter.setDate(homePagerTop);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mHomeRVAdapter.setDate(homePagerTop);
+                }
+            });
+        }
     }
 
-
     private void netLoadHome() {
-        for (int i=0;i<40;i++) {
-            String url="https://www.wanandroid.com/article/list/"+i+"/json";
+        for (int i = 0; i < 40; i++) {
+            String url = "https://www.wanandroid.com/article/list/" + i + "/json";
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String result=doGet(url);
-                    Gson gson=new Gson();
-                    homePager homePager=gson.fromJson(result, com.example.homework.bean.homePager.class);
+                    String result = doGet(url);
+                    Gson gson = new Gson();
+                    homePager homePager = gson.fromJson(result, com.example.homework.bean.homePager.class);
                     updateUIHome(homePager);
                 }
             }).start();
@@ -116,12 +118,14 @@ public class home extends Fragment {
     }
 
     private void updateUIHome(homePager homePager) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mHomeRVAdapter.setDate1(homePager);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mHomeRVAdapter.setDate1(homePager);
+                }
+            });
+        }
     }
 
 
@@ -141,12 +145,14 @@ public class home extends Fragment {
 
 
     private void updateUIBanner(banner banner) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mHomeVPAdapter.setDate(banner);
-            }
-        });
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mHomeVPAdapter.setDate(banner);
+                }
+            });
+        }
     }
 
 }
