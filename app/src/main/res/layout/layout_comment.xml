@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_comment"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_marginTop="5dp"
+    android:paddingLeft="10dp"
+    android:background="@color/green">
+
+    <TextView
+        android:id="@+id/tv_User"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:text="你好"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_User"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="不是英雄"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_User"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="2021-5-30 22:40:34"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_nameFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:text="回复"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_nameFrom"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tv_nameFrom"
+        android:text="郭霖"
+        android:textSize="18sp" />
+   <ImageView
+       android:id="@+id/iv_good"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_baseline_thumb_up_24"
+       android:layout_alignParentEnd="true"
+       android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/tv_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:text="0"
+        android:textSize="18sp"
+        android:layout_toLeftOf="@id/iv_good"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

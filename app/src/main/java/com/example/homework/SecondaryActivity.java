@@ -11,7 +11,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.homework.Fragment.mine;
+import com.example.homework.Fragment.answer;
+import com.example.homework.Fragment.teach;
+import com.example.homework.Fragment.tool;
 import com.google.android.material.navigation.NavigationView;
 
 public class SecondaryActivity extends AppCompatActivity {
@@ -36,21 +38,21 @@ public class SecondaryActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_answer:
-                        mine mine = com.example.homework.Fragment.mine.newInstance("首页", "");
+                        answer answer = com.example.homework.Fragment.answer.newInstance("首页", "");
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fcv_left, mine)
+                                .replace(R.id.fcv_left, answer)
                                 .commit();
                         break;
                     case R.id.menu_tool:
-                        mine mine1 = com.example.homework.Fragment.mine.newInstance("s", "");
+                        tool tool = com.example.homework.Fragment.tool.newInstance("s", "");
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fcv_left, mine1)
+                                .replace(R.id.fcv_left, tool)
                                 .commit();
                         break;
                     case R.id.menu_teach:
-                        mine mine2 = com.example.homework.Fragment.mine.newInstance("1", "");
+                        teach teach = com.example.homework.Fragment.teach.newInstance("1", "");
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fcv_left, mine2)
+                                .replace(R.id.fcv_left, teach)
                                 .commit();
                         break;
                     case R.id.menu_back:
@@ -73,9 +75,9 @@ public class SecondaryActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.dl_left);
         mNavigationView = findViewById(R.id.nv_menu);
         //设置首页的fragment
-        mine mine = com.example.homework.Fragment.mine.newInstance("首页", "");
+        answer answer = com.example.homework.Fragment.answer.newInstance("首页", "");
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fcv_left, mine)
+                .replace(R.id.fcv_left, answer)
                 .commit();
         mNavigationView.setCheckedItem(R.id.menu_answer);
         //将toolbar和draw关联起来
