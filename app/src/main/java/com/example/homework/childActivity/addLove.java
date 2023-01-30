@@ -57,8 +57,8 @@ public class addLove extends AppCompatActivity {
             @Override
             public void run() {
                 String url = "https://www.wanandroid.com/lg/collect/add/json?title=" + title + "&author=" + author + "&link=" + link;
-                String result=sendPost(url);
-                Log.d("hui", "run: "+result);
+                String result = sendPost(url);
+                Log.d("hui", "run: " + result);
                 updateUI();
             }
         }).start();
@@ -68,7 +68,7 @@ public class addLove extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-             Toast.makeText(getBaseContext(),"添加成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "添加成功", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

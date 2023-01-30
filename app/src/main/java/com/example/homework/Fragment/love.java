@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homework.Adapter.loveAdapter;
 import com.example.homework.R;
-import com.example.homework.bean.homePager;
+import com.example.homework.bean.loveBean;
 import com.example.homework.childActivity.addLove;
 import com.example.homework.login.loginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -75,11 +75,11 @@ public class love extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_love);
-        mBtnAdd=view.findViewById(R.id.fab_plus);
+        mBtnAdd = view.findViewById(R.id.fab_plus);
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(getContext(), addLove.class);
+                Intent intent = new Intent(getContext(), addLove.class);
                 view.getContext().startActivity(intent);
             }
         });
@@ -88,36 +88,35 @@ public class love extends Fragment {
     }
 
     private void upNetLoad() {
+        String url = "https://www.wanandroid.com/lg/collect/list/" + 0 + "/json";
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .addHeader("Cookie", String.valueOf(loginActivity.cookies))
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
-            String url = "https://www.wanandroid.com/lg/collect/list/" + 0 + "/json";
-            Request request = new Request.Builder()
-                    .get()
-                    .url(url)
-                    .addHeader("Cookie", String.valueOf(loginActivity.cookies))
-                    .build();
-            Call call = okHttpClient.newCall(request);
-            call.enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            }
 
-                }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String result = response.body().string();
+                Gson gson = new Gson();
+                loveBean loveBean = gson.fromJson(result, com.example.homework.bean.loveBean.class);
+                Log.d("hui", "onResponse: " + result);
+                upUI(loveBean);
+            }
+        });
+    }
 
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    String result = response.body().string();
-                    Gson gson = new Gson();
-                    homePager homePager = gson.fromJson(result, com.example.homework.bean.homePager.class);
-                    Log.d("hui", "onResponse: " + result);
-                    upUI(homePager);
-                }
-            });
-        }
-
-    private void upUI(homePager homePager) {
+    private void upUI(loveBean loveBean) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mLoveAdapter.setData(homePager);
+                mLoveAdapter.setData(loveBean);
                 updateUI();
             }
         }).start();

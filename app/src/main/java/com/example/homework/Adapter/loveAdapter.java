@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homework.R;
 import com.example.homework.Util.webView;
-import com.example.homework.bean.homePager;
+import com.example.homework.bean.loveBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolder> {
-    public static List<homePager.DataDTO.DatasDTO> mData = new ArrayList<>();
+    public static List<loveBean.DataDTO.DatasDTO> mData = new ArrayList<>();
 
     @NonNull
     @Override
@@ -36,10 +36,8 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
     @Override
     public void onBindViewHolder(@NonNull loveAdapter.InnerViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mUser.setText(mData.get(position).getAuthor());
-        holder.mNameFrom.setText(mData.get(position).getSuperChapterName());
         holder.mTitle.setText(mData.get(position).getTitle());
         holder.mName.setText(mData.get(position).getChapterName());
-        holder.mTime.setText(mData.get(position).getNiceShareDate());
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +55,8 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int id = mData.get(position).getId();
-                        upNetLoad(id);
+                        int originId=mData.get(position).getOriginId();
+                        upNetLoad(id,originId);
                         Toast.makeText(view.getContext(), "取消收藏成功", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -74,8 +73,8 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
         });
     }
 
-    private void upNetLoad(int id) {
-        String url = "https://www.wanandroid.com/lg/uncollect/" + id + "/json";
+    private void upNetLoad(int id, int originId) {
+        String url = "https://www.wanandroid.com/lg/uncollect/" + id + "/json"+"?originId="+originId;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -89,14 +88,14 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
         return mData.size();
     }
 
-    public void setData(homePager homePager) {
+    public void setData(loveBean loveBean) {
         mData.clear();
-        mData.addAll(homePager.getData().getDatas());
+        mData.addAll(loveBean.getData().getDatas());
         notifyDataSetChanged();
     }
 
     public class InnerViewHolder extends RecyclerView.ViewHolder {
-        private TextView mName, mNameFrom, mTitle, mTime, mUser;
+        private TextView mName, mTitle, mUser;
         private RelativeLayout mRelativeLayout;
 
         public InnerViewHolder(@NonNull View itemView) {
@@ -104,8 +103,6 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
             mUser = itemView.findViewById(R.id.tv_User);
             mName = itemView.findViewById(R.id.tv_name);
             mTitle = itemView.findViewById(R.id.tv_title);
-            mTime = itemView.findViewById(R.id.tv_time);
-            mNameFrom = itemView.findViewById(R.id.tv_nameFrom);
             mRelativeLayout = itemView.findViewById(R.id.rl_item);
         }
     }

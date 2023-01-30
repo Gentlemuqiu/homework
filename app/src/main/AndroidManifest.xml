@@ -15,6 +15,15 @@
         android:theme="@style/Theme.Homework"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <!--为相应的activity设置自己的style-->
+        <activity
+            android:name=".SecondaryActivity"
+            android:theme="@style/MyNotActionBar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".childActivity.addLove"
             android:exported="false">

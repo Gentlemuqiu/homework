@@ -1,9 +1,15 @@
 package com.example.homework;
 
+import static com.example.homework.Util.NetWorkGet.doGet;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -31,13 +37,60 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initView();
         initEvent();
+        //增加更多设置的菜单
+        initMenu();
+    }
+
+    private void initMenu() {
+        //设置顶部名称
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setTitle("Gentle");
+    }
+
+    //绑定菜单
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //被点击后触发相应的结果
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_more:
+                Intent intent = new Intent(this, SecondaryActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_drop:
+                //加载网络
+                NetLoad();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void NetLoad() {
+        String url = "https://www.wanandroid.com/user/logout/json";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String result = doGet(url);
+                //跳回主线程,并关闭界面
+                updateUI();
+            }
+        }).start();
+    }
+
+    private void updateUI() {
+        finish();
     }
 
 
     private void initData() {
         mFragmentList = new ArrayList<>();
         //将四个底部导航页装入集合
-
         home home = com.example.homework.Fragment.home.newInstance("首页", " ");
         playGround playGround = com.example.homework.Fragment.playGround.newInstance("广场", " ");
         love love = com.example.homework.Fragment.love.newInstance("收藏", " ");
