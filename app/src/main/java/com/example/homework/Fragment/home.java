@@ -67,11 +67,14 @@ public class home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewPager = view.findViewById(R.id.vp_home);
         mHomeVPAdapter = new homeVPAdapter();
+        //网络加载
         netLoadBanner();
         mViewPager.setAdapter(mHomeVPAdapter);
         mRecyclerView = view.findViewById(R.id.rv_home);
         mHomeRVAdapter = new homeRVAdapter();
+        //网络加载
         netLoadHome();
+        //网络加载
         netLoadHomeTop();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mHomeRVAdapter);
@@ -86,15 +89,18 @@ public class home extends Fragment {
                 String result = doGet(url);
                 Gson gson = new Gson();
                 homePagerTop homePagerTop = gson.fromJson(result, homePagerTop.class);
+                //跳转到主线程
                 updateUIHomePagerTop(homePagerTop);
             }
         }).start();
     }
 
     private void updateUIHomePagerTop(homePagerTop homePagerTop) {
+        //防止尚未加载完成,就切换到另一个页面而造成的闪退
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
+                //获得网络加载来的数据
                 public void run() {
                     mHomeRVAdapter.setDate(homePagerTop);
                 }
@@ -103,6 +109,7 @@ public class home extends Fragment {
     }
 
     private void netLoadHome() {
+        //加载40页的内容
         for (int i = 0; i < 40; i++) {
             String url = "https://www.wanandroid.com/article/list/" + i + "/json";
             new Thread(new Runnable() {
@@ -111,6 +118,7 @@ public class home extends Fragment {
                     String result = doGet(url);
                     Gson gson = new Gson();
                     homePager homePager = gson.fromJson(result, com.example.homework.bean.homePager.class);
+                    //主线程执行任务
                     updateUIHome(homePager);
                 }
             }).start();
@@ -118,9 +126,11 @@ public class home extends Fragment {
     }
 
     private void updateUIHome(homePager homePager) {
+        //防止尚未加载完成,就切换到另一个页面而造成的闪退
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
+                //更新数据
                 public void run() {
                     mHomeRVAdapter.setDate1(homePager);
                 }

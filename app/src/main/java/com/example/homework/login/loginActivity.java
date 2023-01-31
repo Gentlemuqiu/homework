@@ -34,12 +34,14 @@ import okhttp3.Response;
 
 public class loginActivity extends AppCompatActivity {
     private EditText mUsername, mPassword;
+    //创建一个cookie集合以便保存
     public static Map<String, List<Cookie>> cookies = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
+        //初始化数据
         initView();
     }
 
@@ -53,22 +55,27 @@ public class loginActivity extends AppCompatActivity {
         mPassword = findViewById(R.id.et_password);
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
-        //先来Okhttp的客户端
+        //使用Okhttp的客户端
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                //最大连接时间为3s
                 .connectTimeout(3000, TimeUnit.MILLISECONDS)
                 .cookieJar(new CookieJar() {
+                    //拿到cookies
                     @Override
                     public void saveFromResponse(@NonNull HttpUrl httpUrl, @NonNull List<Cookie> list) {
                         cookies.put(httpUrl.host(), list);
                     }
+
                     @NonNull
                     @Override
                     public List<okhttp3.Cookie> loadForRequest(@NonNull HttpUrl httpUrl) {
                         List<Cookie> cookies = loginActivity.this.cookies.get(httpUrl.host());
+                        //防止集合为空
                         return cookies == null ? new ArrayList<>() : cookies;
                     }
                 })
                 .build();
+        //请求体
         FormBody body = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
@@ -91,13 +98,16 @@ public class loginActivity extends AppCompatActivity {
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(str);
+                    //拿到错误编码
                     int errorCode = jsonObject.getInt("errorCode");
+                    //拿到错误信息
                     String errorMeg = jsonObject.getString("errorMsg");
                     if (errorCode == 0) {
                         Intent intent = new Intent(loginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
+                        //如果错误就弹出对应的错误
                         Toast.makeText(loginActivity.this, errorMeg, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
@@ -105,46 +115,5 @@ public class loginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-        /* String username = mUsername.getText().toString();
-        String password = mPassword.getText().toString();
-        HashMap<String, String> params = new HashMap<>();
-        params.put("username", username);
-        params.put("password", password);
-        String url = "https://www.wanandroid.com/user/login";
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                String result = sendPostNetRequest(url, params);
-                updateUI(result);
-            }
-        }).start();*/
     }
-
-    /*private void updateUI(String result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                    int errorCode = jsonObject.getInt("errorCode");
-                    String errorMeg = jsonObject.getString("errorMsg");
-                    if (errorCode == 0) {
-                        Intent intent = new Intent(loginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(loginActivity.this, errorMeg, Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }*/
 }

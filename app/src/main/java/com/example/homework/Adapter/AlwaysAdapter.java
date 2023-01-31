@@ -32,6 +32,7 @@ public class AlwaysAdapter extends RecyclerView.Adapter<AlwaysAdapter.InnerViewH
         holder.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //传输url
                 Intent intent = new Intent(view.getContext(), webView.class);
                 intent.putExtra("url", mList.get(position).getLink());
                 view.getContext().startActivity(intent);
@@ -45,8 +46,11 @@ public class AlwaysAdapter extends RecyclerView.Adapter<AlwaysAdapter.InnerViewH
     }
 
     public void setDate(alwaysBean alwaysBean) {
+        //清除
         mList.clear();
+        //增加
         mList.addAll(alwaysBean.getData());
+        //刷新
         notifyDataSetChanged();
     }
 

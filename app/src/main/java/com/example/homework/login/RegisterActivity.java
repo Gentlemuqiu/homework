@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        //加载数据
         initView();
     }
 
@@ -34,9 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
+        //从EditText中得到对应的String
         String username = mUsername.getText().toString();
         String password1 = mFirstPassword.getText().toString();
         String password2 = mSecondPassword.getText().toString();
+        //将数据以Hashmap的方式传递
         HashMap<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password1);
@@ -57,13 +60,17 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    //解析得到的数据
                     JSONObject jsonObject = new JSONObject(result);
+                    //拿到错误编码
                     int errorCode= jsonObject.getInt("errorCode");
                     String errorMeg= jsonObject.getString("errorMsg");
                     if(errorCode==0){
+                        //为0表示成功
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
+                        //否则弹出相应的错误信息
                         Toast.makeText(RegisterActivity.this, errorMeg, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {

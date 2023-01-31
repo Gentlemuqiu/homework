@@ -37,6 +37,7 @@ public class accountAdapter extends RecyclerView.Adapter<accountAdapter.InnerVie
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //传递url
                 Intent intent = new Intent(view.getContext(), webView.class);
                 intent.putExtra("url", mData.get(position).getLink());
                 view.getContext().startActivity(intent);
@@ -50,7 +51,9 @@ public class accountAdapter extends RecyclerView.Adapter<accountAdapter.InnerVie
     }
 
     public void setDate(accountBean account) {
+        //增加
         mData.addAll(account.getData().getDatas());
+        //刷新
         notifyDataSetChanged();
     }
 

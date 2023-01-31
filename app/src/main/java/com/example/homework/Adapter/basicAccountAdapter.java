@@ -32,6 +32,7 @@ public class basicAccountAdapter extends RecyclerView.Adapter<basicAccountAdapte
         holder.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //传递id便于实现对应接口
                 Intent intent = new Intent(view.getContext(), Account.class);
                 intent.putExtra("id",id);
                 view.getContext().startActivity(intent);
@@ -45,8 +46,11 @@ public class basicAccountAdapter extends RecyclerView.Adapter<basicAccountAdapte
     }
 
     public void setDate(basicAccountBean basicAccountBean) {
+        //清除
         mList.clear();
+        //增加
         mList.addAll(basicAccountBean.getData());
+        //刷新
         notifyDataSetChanged();
     }
 

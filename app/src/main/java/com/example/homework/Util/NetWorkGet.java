@@ -11,6 +11,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class NetWorkGet {
+    //不带Cookie的请求
     public static String doGet(String url) {
         HttpURLConnection urlConnection;
         InputStream inputStream = null;
@@ -55,6 +56,7 @@ public class NetWorkGet {
 
         return json;
     }
+    //带Cookie的Get请求
     public static String doCookieGet(String url) {
         HttpURLConnection urlConnection;
         InputStream inputStream = null;

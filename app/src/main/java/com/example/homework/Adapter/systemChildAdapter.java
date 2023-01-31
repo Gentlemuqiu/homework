@@ -36,6 +36,7 @@ public class systemChildAdapter extends RecyclerView.Adapter<systemChildAdapter.
             @Override
             public void onClick(View view) {
                 int id = mChildrenDTOS.get(position).getId();
+                //拿到id交给article
                 Intent intent = new Intent(view.getContext(), article.class);
                 intent.putExtra("id",id);
                 view.getContext().startActivity(intent);

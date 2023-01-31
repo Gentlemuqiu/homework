@@ -40,6 +40,7 @@ public class itemAdapter extends RecyclerView.Adapter<itemAdapter.InnerViewHolde
         holder.mAuthor.setText(mDataDTOList.get(position).getAuthor());
         holder.mDesc.setText(mDataDTOList.get(position).getDesc());
         holder.mTitle.setText(mDataDTOList.get(position).getTitle());
+        //利用Glide加载图片
         Glide.with(mContext).load(mDataDTOList.get(position).getEnvelopePic()).into(holder.mImageView);
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +59,9 @@ public class itemAdapter extends RecyclerView.Adapter<itemAdapter.InnerViewHolde
     }
 
     public void setData(itemChildBean itemChildBean) {
+        //增加数据
         mDataDTOList.addAll(itemChildBean.getData().getDatas());
+        //刷新
         notifyDataSetChanged();
     }
 

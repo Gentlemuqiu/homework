@@ -39,8 +39,11 @@ public class systemAdapter extends RecyclerView.Adapter<systemAdapter.InnerViewH
     }
 
     public void setDate(systemBean systembean) {
+        //清除
         mData.clear();
+        //增加
         mData.addAll(systembean.getData());
+        //刷新
         notifyDataSetChanged();
     }
 

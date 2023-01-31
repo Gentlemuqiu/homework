@@ -32,8 +32,9 @@ public class NavRightAdapter extends RecyclerView.Adapter<NavRightAdapter.InnerV
         holder.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(), webView.class);
-                intent.putExtra("url",mList.get(position).getLink());
+                //传递url 打开对应的网页
+                Intent intent = new Intent(view.getContext(), webView.class);
+                intent.putExtra("url", mList.get(position).getLink());
                 view.getContext().startActivity(intent);
             }
         });
@@ -45,8 +46,11 @@ public class NavRightAdapter extends RecyclerView.Adapter<NavRightAdapter.InnerV
     }
 
     public void setData(List<NavBean.DataDTO.ArticlesDTO> articles) {
+        //清除
         mList.clear();
+        //增加
         mList.addAll(articles);
+        //刷新
         notifyDataSetChanged();
     }
 

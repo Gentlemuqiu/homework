@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 public class NetWorkPost {
+    //采用HashMap
     public static String sendPostNetRequest(String mUrl, HashMap<String, String> params) {
         BufferedReader reader1;
         StringBuilder builder = null;
@@ -63,7 +64,7 @@ public class NetWorkPost {
         }
         return builder.toString();
     }
-
+    //不用Hashmap
     public static String sendPost(String mUrl) {
         BufferedReader reader1;
         StringBuilder builder = null;

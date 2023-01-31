@@ -76,6 +76,7 @@ public class love extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_love);
         mBtnAdd = view.findViewById(R.id.fab_plus);
+        //点击+号后跳转至增加页面
         mBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,12 +90,14 @@ public class love extends Fragment {
 
     private void upNetLoad() {
         String url = "https://www.wanandroid.com/lg/collect/list/" + 0 + "/json";
+        //请求体
         Request request = new Request.Builder()
                 .get()
                 .url(url)
                 .addHeader("Cookie", String.valueOf(loginActivity.cookies))
                 .build();
         Call call = okHttpClient.newCall(request);
+        //执行call任务
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -103,10 +106,12 @@ public class love extends Fragment {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                //将响应体变成字符串
                 String result = response.body().string();
                 Gson gson = new Gson();
                 loveBean loveBean = gson.fromJson(result, com.example.homework.bean.loveBean.class);
                 Log.d("hui", "onResponse: " + result);
+                //更新主界面
                 upUI(loveBean);
             }
         });
@@ -116,6 +121,7 @@ public class love extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //更该数据
                 mLoveAdapter.setData(loveBean);
                 updateUI();
             }
@@ -123,41 +129,16 @@ public class love extends Fragment {
     }
 
     private void updateUI() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mRecyclerView.setAdapter(mLoveAdapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            }
-        });
-
-    }
-
-
-
-/*
-     {
-        for (int i = 0; i < 40; i++) {
-            String url = "https://www.wanandroid.com/lg/collect/list/" + i + "/json";
-            new Thread(new Runnable() {
+        //防止尚未加载完成,就切换到另一个页面而造成的闪退
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    String result = doGet(url);
-                    Gson gson = new Gson();
-                    homePager homePager = gson.fromJson(result, com.example.homework.bean.homePager.class);
-                    Log.d("hui", "run: "+result);
-                    upDateUI(homePager);
+                    mRecyclerView.setAdapter(mLoveAdapter);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 }
-            }).start();
+            });
+
         }
     }
-
-    private void upDateUI(homePager homePager) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mLoveAdapter.setData(homePager);
-            }
-        });
-    }*/
 }

@@ -78,12 +78,14 @@ public class search extends Fragment {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                //得到查询的名称放入接口中
                 upLoadSearchNet(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                //判断文本是否为空, 空的话显示热词和常用文章,不为空则隐藏
                 if (newText.equals("")) {
                     searchAdapter.mList.clear();
                     rv_search.setVisibility(View.GONE);
@@ -113,6 +115,7 @@ public class search extends Fragment {
                     String result = sendPost(url);
                     Gson gson = new Gson();
                     searchBean searchBean = gson.fromJson(result, com.example.homework.bean.searchBean.class);
+                    //跳到主线程
                     upDateUISearch(searchBean);
                 }
             }
@@ -120,6 +123,7 @@ public class search extends Fragment {
     }
 
     private void upDateUISearch(searchBean searchBean) {
+        //防止未加载完全,划入另一个界面导致闪退
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -143,6 +147,7 @@ public class search extends Fragment {
         rv_hotWord.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
+    //加载
     private void upLoadHotWordNet() {
         String url = "https://www.wanandroid.com//hotkey/json";
         new Thread(new Runnable() {
@@ -151,20 +156,25 @@ public class search extends Fragment {
                 String result = doGet(url);
                 Gson gson = new Gson();
                 hotWordBean hotWordBean = gson.fromJson(result, com.example.homework.bean.hotWordBean.class);
+                //更新主线程
                 upLoadUIHotWordNet(hotWordBean);
             }
         }).start();
     }
 
     private void upLoadUIHotWordNet(hotWordBean hotWordBean) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mHotWordAdapter.setData(hotWordBean);
-            }
-        });
+        //防止未加载完全,划入另一个界面导致闪退
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mHotWordAdapter.setData(hotWordBean);
+                }
+            });
+        }
     }
 
+    //加载
     private void upLoadAlwaysNet() {
         String url = "https://www.wanandroid.com/friend/json";
         new Thread(new Runnable() {
@@ -173,17 +183,21 @@ public class search extends Fragment {
                 String result = doGet(url);
                 Gson gson = new Gson();
                 alwaysBean alwaysBean = gson.fromJson(result, com.example.homework.bean.alwaysBean.class);
+                //更新回主界面
                 upLoadUIAlways(alwaysBean);
             }
         }).start();
     }
 
     private void upLoadUIAlways(alwaysBean alwaysBean) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mAlwaysAdapter.setDate(alwaysBean);
-            }
-        });
+        //防止未加载完全,划入另一个界面导致闪退
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mAlwaysAdapter.setDate(alwaysBean);
+                }
+            });
+        }
     }
 }

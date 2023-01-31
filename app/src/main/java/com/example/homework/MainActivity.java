@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_more:
+                //跳到新创造的页面
                 Intent intent = new Intent(this, SecondaryActivity.class);
                 startActivity(intent);
                 return true;
@@ -67,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 //加载网络
                 NetLoad();
                 return true;
+            case R.id.menu_light:
+                //设置日间模式
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                return true;
+            case R.id.menu_dark:
+                //设置夜间模式
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -94,11 +105,11 @@ public class MainActivity extends AppCompatActivity {
         home home = com.example.homework.Fragment.home.newInstance("首页", " ");
         playGround playGround = com.example.homework.Fragment.playGround.newInstance("广场", " ");
         love love = com.example.homework.Fragment.love.newInstance("收藏", " ");
-        mine mine = com.example.homework.Fragment.mine.newInstance("我的", " ");
+        mine mine1 = com.example.homework.Fragment.mine.newInstance("我的", "");
         mFragmentList.add(home);
         mFragmentList.add(playGround);
         mFragmentList.add(love);
-        mFragmentList.add(mine);
+        mFragmentList.add(mine1);
     }
 
     private void initView() {

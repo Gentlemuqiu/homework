@@ -61,6 +61,7 @@ public class account extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_account);
+        //网路加载
         netLoadAccount();
         mBasicAccountAdapter = new basicAccountAdapter();
         mRecyclerView.setAdapter(mBasicAccountAdapter);
@@ -84,12 +85,14 @@ public class account extends Fragment {
                 String result = doGet(url);
                 Gson gson = new Gson();
                 basicAccountBean basicAccountBean = gson.fromJson(result, com.example.homework.bean.basicAccountBean.class);
+                //返回主线程
                 upAccountDateUI(basicAccountBean);
             }
         }).start();
     }
 
     private void upAccountDateUI(basicAccountBean basicAccountBean) {
+        //防止尚未加载完成,就切换到另一个页面而造成的闪退
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override

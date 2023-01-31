@@ -31,6 +31,7 @@ public class Navigation extends Fragment {
     private NavLeftAdapter mNavLeftAdapter;
     private RecyclerView mRecyclerViewRight;
     private NavRightAdapter mNavRightAdapter;
+
     public Navigation() {
 
     }
@@ -65,11 +66,12 @@ public class Navigation extends Fragment {
         mRecyclerViewRight = view.findViewById(R.id.rv_right);
         mRecyclerViewLeft = view.findViewById(R.id.rv_left);
         mNavRightAdapter = new NavRightAdapter();
-        mNavLeftAdapter = new NavLeftAdapter(mRecyclerViewRight,mNavRightAdapter);
+        mNavLeftAdapter = new NavLeftAdapter(mRecyclerViewRight, mNavRightAdapter);
+        //网络加载
         netLoadNav();
         mRecyclerViewLeft.setAdapter(mNavLeftAdapter);
         mRecyclerViewLeft.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerViewLeft.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerViewLeft.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
 
     private void netLoadNav() {
@@ -77,20 +79,25 @@ public class Navigation extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String result=doGet(url);
-                Gson gson=new Gson();
-                NavBean navBean=gson.fromJson(result,NavBean.class);
+                String result = doGet(url);
+                Gson gson = new Gson();
+                NavBean navBean = gson.fromJson(result, NavBean.class);
+                //跳到主线程
                 updateUINav(navBean);
             }
         }).start();
     }
 
     private void updateUINav(NavBean navBean) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mNavLeftAdapter.setDate(navBean);
-            }
-        });
+        //防止尚未加载完成,就切换到另一个页面而造成的闪退
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                //更新数据
+                public void run() {
+                    mNavLeftAdapter.setDate(navBean);
+                }
+            });
+        }
     }
 }

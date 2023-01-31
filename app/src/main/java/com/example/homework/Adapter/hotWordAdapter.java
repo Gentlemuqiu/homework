@@ -12,14 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homework.R;
 import com.example.homework.bean.hotWordBean;
-import com.example.homework.childFragment.search;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class hotWordAdapter extends RecyclerView.Adapter<hotWordAdapter.InnerViewHolder> {
     private List<hotWordBean.DataDTO> mList = new ArrayList<>();
-    private search mSearch;
 
     @NonNull
     @Override
@@ -44,8 +42,11 @@ public class hotWordAdapter extends RecyclerView.Adapter<hotWordAdapter.InnerVie
     }
 
     public void setData(hotWordBean hotWordBean) {
+        //清除
         mList.clear();
+        //增加
         mList.addAll(hotWordBean.getData());
+        //刷新
         notifyDataSetChanged();
     }
 

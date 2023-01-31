@@ -40,6 +40,7 @@ public class loginAdapter extends PagerAdapter {
             //翻页变亮
             ((RadioButton) rg_indicate.getChildAt(i)).setChecked(true);
             if (i == imageArray.length - 1) {
+                //当翻到最后一个界面时显示Button
                 btn_login.setVisibility(View.VISIBLE);
                 btn_register.setVisibility(View.VISIBLE);
                 btn_login.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,7 @@ public class loginAdapter extends PagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
-
+   //增加
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -78,7 +79,7 @@ public class loginAdapter extends PagerAdapter {
         container.addView(item);
         return item;
     }
-
+  //移除
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView(mViewList.get(position));

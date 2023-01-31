@@ -18,7 +18,7 @@ import java.util.List;
 public class homeVPAdapter extends PagerAdapter {
     private final List<banner.DataDTO> mBannerList = new ArrayList<>();
 
-    //顶部轮播
+
     @Override
     public int getCount() {
         return mBannerList.size();
@@ -32,11 +32,15 @@ public class homeVPAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        //创造对象
         ImageView bannerImageView = new ImageView(container.getContext());
+        //设置宽高的参数
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         bannerImageView.setLayoutParams(lp);
+        //设置显示方式
         bannerImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        Glide.with(container.getContext()).load(mBannerList.get(position).getImagePath()).into(bannerImageView);
+        Glide.with(bannerImageView).load(mBannerList.get(position).getImagePath()).into(bannerImageView);
+        //设置监听事件,跳转到webView;
         bannerImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,18 +49,22 @@ public class homeVPAdapter extends PagerAdapter {
                 view.getContext().startActivity(intent);
             }
         });
+        //在容器中增加view,可以更快的加载
         container.addView(bannerImageView);
         return bannerImageView;
     }
-
+    //移除view,防止加载过多,带来的卡顿
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
     public void setDate(banner banner) {
+        //刷新
         mBannerList.clear();
+        //放置数据
         mBannerList.addAll(banner.getData());
+        //刷新
         notifyDataSetChanged();
     }
 

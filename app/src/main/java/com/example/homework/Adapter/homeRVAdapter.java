@@ -25,12 +25,14 @@ import com.example.homework.bean.homePagerTop;
 import java.util.ArrayList;
 import java.util.List;
 
+//继承内部类的父类RecyclerView.ViewHolder
 public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<homePager.DataDTO.DatasDTO> mData = new ArrayList<>();
     private List<homePagerTop.DataDTO> mData2 = new ArrayList<>();
 
     @Override
     public int getItemViewType(int position) {
+        //当小于置顶文章的数目时返回的类型为1,此时加载置顶文章
         if (position < mData2.size()) {
             return 1;
         } else {
@@ -41,15 +43,18 @@ public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //为0时加载正常文章布局
         if (viewType == 0) {
             return new InnerHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_home, parent, false));
         } else {
+            //为1是加载置顶文章布局
             return new headerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_home_top, parent, false));
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        //判断holder是谁的实体类
         if (holder instanceof InnerHolder) {
             ((InnerHolder) holder).mUser.setText(mData.get(position).getAuthor());
             ((InnerHolder) holder).mNameFrom.setText(mData.get(position).getSuperChapterName());
@@ -68,12 +73,14 @@ public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((InnerHolder) holder).mRelativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+                    //对话框的建立
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setMessage("您是否要收藏这篇文章?");
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             int id = mData.get(position).getId();
+                            //网络加载
                             upNetLoad(id);
                         }
                     });
@@ -84,6 +91,7 @@ public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         }
                     });
                     AlertDialog alertDialog = builder.create();
+                    //展示
                     alertDialog.show();
                     return true;
                 }
@@ -106,12 +114,14 @@ public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((headerViewHolder) holder).mRelativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+                    //建立对话框.
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setMessage("您是否要收藏这篇文章?");
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             int id = mData.get(position).getId();
+                            //网络加载
                             upNetLoad(id);
                             Toast.makeText(view.getContext(), "收藏成功", Toast.LENGTH_SHORT).show();
                         }
@@ -123,6 +133,7 @@ public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         }
                     });
                     AlertDialog alertDialog = builder.create();
+                    //展示
                     alertDialog.show();
                     return true;
                 }
@@ -147,11 +158,13 @@ public class homeRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setDate1(homePager homePager) {
+        //更新数据
         mData.addAll(homePager.getData().getDatas());
         notifyDataSetChanged();
     }
 
     public void setDate(homePagerTop homePagerTop) {
+        //更新数据
         mData2.clear();
         mData2.addAll(homePagerTop.getData());
         notifyDataSetChanged();

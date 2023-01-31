@@ -60,6 +60,7 @@ public class system extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mMRecyclerView = view.findViewById(R.id.rv_ground);
         mSystemAdapter = new systemAdapter();
+        //网络加载
         netLoadTitle();
         mMRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mMRecyclerView.setAdapter(mSystemAdapter);
@@ -74,6 +75,7 @@ public class system extends Fragment {
                 String result=doGet(url);
                 Gson gson=new Gson();
                 systemBean systembean=gson.fromJson(result, systemBean.class);
+                //切换到主线程
                 updateUISystemTitle(systembean);
             }
         }).start();
@@ -82,6 +84,7 @@ public class system extends Fragment {
     private void updateUISystemTitle(systemBean systembean) {
     getActivity().runOnUiThread(new Runnable() {
         @Override
+        //更新数据
         public void run() {
             mSystemAdapter.setDate(systembean);
         }

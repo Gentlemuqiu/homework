@@ -15,8 +15,10 @@ public class webView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         mWebView = findViewById(R.id.wv_webView);
+        //拿到url
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
+        //加载数据
         mWebView.loadUrl(url);
     }
 }

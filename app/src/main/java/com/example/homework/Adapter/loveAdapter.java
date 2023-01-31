@@ -6,7 +6,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +48,7 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
         holder.mRelativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                //创建对话框
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setMessage("你是否要取消收藏");
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -56,6 +56,7 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int id = mData.get(position).getId();
                         int originId=mData.get(position).getOriginId();
+                        //更新网络
                         upNetLoad(id,originId);
                         Toast.makeText(view.getContext(), "取消收藏成功", Toast.LENGTH_SHORT).show();
                     }
@@ -66,6 +67,7 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
 
                     }
                 });
+                //弹出
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
                 return true;
@@ -79,7 +81,6 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
             @Override
             public void run() {
                 String result = sendPost(url);
-                Log.d("hui", "run: "+result);
             }
         }).start();
     }
@@ -89,8 +90,11 @@ public class loveAdapter extends RecyclerView.Adapter<loveAdapter.InnerViewHolde
     }
 
     public void setData(loveBean loveBean) {
+        //清除
         mData.clear();
+        //增加数据
         mData.addAll(loveBean.getData().getDatas());
+        //刷新
         notifyDataSetChanged();
     }
 

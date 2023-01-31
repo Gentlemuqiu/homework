@@ -48,7 +48,9 @@ public class searchAdapter extends RecyclerView.Adapter<searchAdapter.InnerViewH
     }
 
     public void setData(searchBean bean) {
+        //增加
         mList.addAll(bean.getData().getDatas());
+        //刷新
         notifyDataSetChanged();
     }
 

@@ -9,4 +9,13 @@
         android:id="@+id/menu_drop"
         android:title="退出"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_light"
+        android:title="白天"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_dark"
+        android:title="夜间模式"
+        android:icon="@drawable/ic_baseline_bedtime_24"
+        app:showAsAction="always"/>
 </menu>

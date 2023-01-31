@@ -20,7 +20,7 @@ public class NavLeftAdapter extends RecyclerView.Adapter<NavLeftAdapter.InnerVie
     List<NavBean.DataDTO> mList = new ArrayList<>();
     private RecyclerView mRecyclerViewRight;
     private NavRightAdapter mNavRightAdapter;
-
+    //将有侧布局传进来,以便为其设置数据
     public NavLeftAdapter(RecyclerView recyclerViewRight, NavRightAdapter navRightAdapter) {
         this.mRecyclerViewRight=recyclerViewRight;
         this.mNavRightAdapter=navRightAdapter;
@@ -35,6 +35,7 @@ public class NavLeftAdapter extends RecyclerView.Adapter<NavLeftAdapter.InnerVie
     @Override
     public void onBindViewHolder(@NonNull NavLeftAdapter.InnerViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mButton.setText(mList.get(position).getName());
+        //设置点击监听事件,当点击后为右侧RecyclerView设置其适配器
         holder.mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +53,11 @@ public class NavLeftAdapter extends RecyclerView.Adapter<NavLeftAdapter.InnerVie
     }
 
     public void setDate(NavBean navBean) {
+        //清除
         mList.clear();
+        //增加数据
         mList.addAll(navBean.getData());
+        //刷新
         notifyDataSetChanged();
     }
 
