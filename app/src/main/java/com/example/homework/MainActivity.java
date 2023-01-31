@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        //当选择某个下标时跳到相应页面
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //当选中某一个页面时  下标也被选择
     private void onPagerSelected(int position) {
         switch (position) {
             case 0:

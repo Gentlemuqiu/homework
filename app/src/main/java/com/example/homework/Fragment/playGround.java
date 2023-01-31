@@ -68,10 +68,12 @@ public class playGround extends Fragment {
         initData();
         mPlayGroundChildAdapter=new playGroundChildAdapter(getActivity().getSupportFragmentManager(), mFragments,mTitleName);
         mViewPager.setAdapter(mPlayGroundChildAdapter);
+        //使Fragment与TabLayout进行联动
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
     private void initData() {
+        //创建Fragment集合 在PlayGround中容纳多个Fragment
         mFragments=new ArrayList<>();
         system system= com.example.homework.childFragment.system.newInstance("体系","");
         Navigation navigation=com.example.homework.childFragment.Navigation.newInstance("导航","");
@@ -83,6 +85,7 @@ public class playGround extends Fragment {
         mFragments.add(item);
         mFragments.add(search);
         mFragments.add(account);
+        //为各个Fragment添加名字
         mTitleName=new ArrayList<>();
         mTitleName.add("体系");
         mTitleName.add("导航");

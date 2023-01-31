@@ -28,7 +28,6 @@ public class playGroundChildAdapter extends FragmentStatePagerAdapter {
         return mTitleName.size();
     }
     //显示title
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
