@@ -98,7 +98,6 @@ public class NetWorkGet {
                 }
             }
         }
-
         return json;
     }
 }

@@ -22,7 +22,6 @@ import java.util.List;
 
 public class loginAdapter extends PagerAdapter {
     private List<View> mViewList = new ArrayList<>();
-
     public loginAdapter(Context context, int[] imageArray) {
         for (int i = 0; i < imageArray.length; i++) {
             //每个页面设置一张图片
@@ -84,4 +83,5 @@ public class loginAdapter extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView(mViewList.get(position));
     }
+
 }
