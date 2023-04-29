@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "homework"
 include ':app'
 include ':sunnyweather'
+include ':midtest'

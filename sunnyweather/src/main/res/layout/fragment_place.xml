@@ -12,10 +12,10 @@
         android:src="@drawable/bg_place" />
 
     <FrameLayout
-        android:background="@color/colorPrimary"
         android:id="@+id/actionBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary">
 
         <EditText
             android:id="@+id/searchPlaceEdit"
@@ -29,6 +29,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp" />
     </FrameLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
