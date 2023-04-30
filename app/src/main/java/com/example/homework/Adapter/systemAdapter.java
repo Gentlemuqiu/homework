@@ -22,6 +22,7 @@ public class systemAdapter extends RecyclerView.Adapter<systemAdapter.InnerViewH
     @Override
     public systemAdapter.InnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new InnerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.systemchild, parent, false));
+
     }
 
     @Override

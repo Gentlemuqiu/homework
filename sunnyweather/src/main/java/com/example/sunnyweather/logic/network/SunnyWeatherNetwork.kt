@@ -1,5 +1,6 @@
 package com.example.sunnyweather.logic.network
 
+import android.util.Log
 import com.example.sunnyweather.logic.model.Weather
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +24,7 @@ object SunnyWeatherNetwork {
             enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
+                    Log.d("hui", "onResponse:${body} ")
                     //让协程恢复
                     if (body != null) continuation.resume(body)
                     else continuation.resumeWithException(

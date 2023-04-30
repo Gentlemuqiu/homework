@@ -1,6 +1,6 @@
 package com.example.midtest.model
-import com.google.gson.annotations.SerializedName
 
+import com.google.gson.annotations.SerializedName
 
 data class latest(
     @SerializedName("date")
