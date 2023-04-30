@@ -14,7 +14,7 @@ import com.example.midtest.R
 import com.example.midtest.model.latest
 import kotlin.properties.Delegates
 
-class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<latest.TopStory>) :
+class vp2Adapter(private val context: Context, private val data: ArrayList<latest.TopStory>) :
     RecyclerView.Adapter<vp2Adapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.latest_image)
@@ -30,9 +30,10 @@ class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<lat
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(fragment).load(data[position % data.size].image).into(holder.image)
-        holder.title.text=data[position % data.size].title
-        holder.hint.text=data[position % data.size].hint
+        val realPosition = position % data.size
+        Glide.with(context).load(data[realPosition].image).into(holder.image)
+        holder.title.text = data[ realPosition].title
+        holder.hint.text = data[realPosition].hint
     }
 
 

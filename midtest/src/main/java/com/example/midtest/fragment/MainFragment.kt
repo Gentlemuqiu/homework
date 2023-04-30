@@ -14,11 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.midtest.adapter.mainAdapter
 import com.example.midtest.adapter.vp2Adapter
 import com.example.midtest.databinding.FragmentMainBinding
 import com.example.midtest.viewModel.LatestViewModel
 
+/*
 class MainFragment : Fragment() {
     private val latestViewModel by lazy { ViewModelProvider(this).get(LatestViewModel::class.java) }
     private val mBinding: FragmentMainBinding by lazy {
@@ -37,7 +37,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.rvMain.layoutManager= LinearLayoutManager(activity)
-        adapter= mainAdapter(this, latestViewModel.latestList)
         latestViewModel.todayLiveData.observe(viewLifecycleOwner, Observer { result ->
             val data = result.getOrNull()
             if (data != null) {
@@ -51,4 +50,4 @@ class MainFragment : Fragment() {
         })
         mBinding.rvMain.adapter =adapter
     }
-}
+}*/

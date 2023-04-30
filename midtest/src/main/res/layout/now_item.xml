@@ -12,7 +12,7 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -24,9 +24,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
-                android:maxLength="2"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
+                android:maxLines="2"
                 android:textStyle="bold" />
 
             <TextView
@@ -34,14 +34,15 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="80dp"
                 android:ellipsize="end"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="14sp" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/nowImage"
             android:layout_width="100dp"
             android:layout_height="100dp"

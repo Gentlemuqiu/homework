@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.midtest.R
 import com.example.midtest.model.latest
 
-class nowAdapter(private val fragment: Fragment, private val data: ArrayList<latest.Story>) :
+class nowAdapter(private val context: Context, private val data: ArrayList<latest.Story>) :
     RecyclerView.Adapter<nowAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.nowImage)
@@ -26,7 +26,7 @@ class nowAdapter(private val fragment: Fragment, private val data: ArrayList<lat
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-        Glide.with(fragment).load(data[position].images).into(holder.image)
+        Glide.with(context).load(data[position].images[0]).into(holder.image)
         holder.title.text=data[position].title
         holder.hint.text=data[position].hint
     }

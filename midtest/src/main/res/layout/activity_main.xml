@@ -7,10 +7,9 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/main_fragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.midtest.fragment.MainFragment"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
