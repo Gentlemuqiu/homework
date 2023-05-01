@@ -8,35 +8,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.midtest.MainActivity
-import com.example.midtest.MainActivity.Companion.handler
 import com.example.midtest.R
+import com.example.midtest.fragment.MainFragment.Companion.handler
 import com.example.midtest.model.latest
 
 class mainAdapter(
-    private val context: Context,
+    private val fragment: Fragment,
     private val data: ArrayList<latest.TopStory>,
     private val data1: ArrayList<latest.Story>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
-         lateinit var mLooperTask: Runnable
+        lateinit var mLooperTask: Runnable
     }
 
 
-    class ImageViewHolder(view: View, data: ArrayList<latest.TopStory>, context: Context) :
+    inner class ImageViewHolder(view: View, data: ArrayList<latest.TopStory>, fragment: Fragment) :
         RecyclerView.ViewHolder(view) {
-        val vp2Adapter = vp2Adapter(context, data)
+        val vp2Adapter = vp2Adapter(fragment, data)
         val vp2 = view.findViewById<ViewPager2>(R.id.vp2)
         val manyPoint = view.findViewById<LinearLayout>(R.id.manyPoint)
     }
 
-    class nowViewHolder(view: View, context: Context, data1: ArrayList<latest.Story>) :
+    class nowViewHolder(view: View, fragment: Fragment, data1: ArrayList<latest.Story>) :
         RecyclerView.ViewHolder(view) {
-        val nowAdapter = nowAdapter(context, data1)
+        val nowAdapter = nowAdapter(fragment, data1)
         val nowRecyclerView = view.findViewById<RecyclerView>(R.id.now_recycler)
     }
 
@@ -54,12 +55,12 @@ class mainAdapter(
             ImageViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.vp2, parent, false),
                 data,
-                context
+                fragment
             )
         } else {
             nowViewHolder(
                 LayoutInflater.from(parent.context).inflate(R.layout.now_recycler, parent, false),
-                context,
+                fragment,
                 data1
             )
         }
@@ -76,7 +77,7 @@ class mainAdapter(
 
         } else if (holder is nowViewHolder) {
             holder.nowRecyclerView.adapter = holder.nowAdapter
-            holder.nowRecyclerView.layoutManager = LinearLayoutManager(context)
+            holder.nowRecyclerView.layoutManager = LinearLayoutManager(fragment.context)
         }
     }
 
@@ -110,10 +111,10 @@ class mainAdapter(
         holder.vp2.getChildAt(0).setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    MainActivity.handler.removeCallbacks(mLooperTask)
+                   handler.removeCallbacks(mLooperTask)
                 }
                 MotionEvent.ACTION_UP -> {
-                    MainActivity.handler.postDelayed(mLooperTask, 3000)
+                    handler.postDelayed(mLooperTask, 3000)
                 }
             }
             return@setOnTouchListener false
@@ -123,15 +124,14 @@ class mainAdapter(
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun insertPoint(holder: ImageViewHolder) {
         for (i in 0 until data.size) {
-            val point = View(this.context)
+            val point = View(fragment.context)
             val layoutParams = LinearLayout.LayoutParams(15, 15)
-            point.background = context.getDrawable(R.drawable.shape_point_normal)
+            point.background = fragment.context?.getDrawable(R.drawable.shape_point_normal)
             layoutParams.leftMargin = 20
             point.layoutParams = layoutParams
             holder.manyPoint.addView(point)
         }
     }
-
 
 
 }
