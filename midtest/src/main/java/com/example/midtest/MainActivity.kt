@@ -2,22 +2,16 @@ package com.example.midtest
 
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.Window
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.midtest.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private val mBinding: ActivityMainBinding by lazy {
@@ -71,8 +65,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.day -> Toast.makeText(this, "日间模式", Toast.LENGTH_SHORT).show()
-            R.id.night -> Toast.makeText(this, "夜间模式", Toast.LENGTH_SHORT).show()
+            R.id.day -> {       //设置日间模式
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                mBinding.toolbar.setBackgroundResource(com.google.android.material.R.color.material_dynamic_primary90)
+            }
+            R.id.night -> {//设置夜间模式
+                mBinding.toolbar.setBackgroundResource(com.bumptech.glide.R.color.material_blue_grey_800)
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+            }
+
+
         }
         return true
     }

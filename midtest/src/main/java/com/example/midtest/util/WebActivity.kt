@@ -48,5 +48,13 @@ class WebActivity : AppCompatActivity() {
             intent.putExtra("response", id!![response])
             this.startActivity(intent)
         })
+        //采用系统自带的分享
+        mBinding.share.setOnClickListener(View.OnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type="text/plain"// 指定类型是纯文本分享
+            intent.putExtra(Intent.EXTRA_SUBJECT,"标题")
+            intent.putExtra(Intent.EXTRA_TEXT,data[response])
+            startActivity(Intent.createChooser(intent,"分享"))
+        })
     }
 }
