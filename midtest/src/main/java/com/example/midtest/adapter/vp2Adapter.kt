@@ -55,10 +55,9 @@ class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<lat
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        val realPosition = position % data.size
-        Glide.with(fragment).load(data[realPosition].image).into(holder.image)
-        holder.title.text = data[realPosition].title
-        holder.hint.text = data[realPosition].hint
+        Glide.with(fragment).load(data[position].image).into(holder.image)
+        holder.title.text = data[position].title
+        holder.hint.text = data[position].hint
     }
 
 

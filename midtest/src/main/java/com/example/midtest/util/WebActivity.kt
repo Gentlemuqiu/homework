@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.midtest.adapter.webAdapter
 import com.example.midtest.databinding.ActivityWebBinding
+import com.example.midtest.fragment.MainFragment
 
 
 class WebActivity : AppCompatActivity() {
@@ -22,6 +23,7 @@ class WebActivity : AppCompatActivity() {
         val id = intent.getStringArrayListExtra("id")
         adapter = webAdapter(this, data!!)
         mBinding.vp2WebView.adapter = adapter
+        mBinding.vp2WebView.setCurrentItem(MainFragment.myPosition,false)
         var response = 0
         //设置页面改变监听,然后获取对应文章的id
         mBinding.vp2WebView.registerOnPageChangeCallback(object :
@@ -29,18 +31,6 @@ class WebActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 response = position
                 super.onPageSelected(position)
-            }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
             }
         })
         mBinding.talk.setOnClickListener(View.OnClickListener {

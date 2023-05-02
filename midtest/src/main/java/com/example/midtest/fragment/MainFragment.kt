@@ -21,9 +21,9 @@ class MainFragment : Fragment() {
     private val mBinding: FragmentMainBinding by lazy {
         FragmentMainBinding.inflate(layoutInflater)
     }
-
+   //放到全据变量 ,
     companion object {
-        lateinit var handler: Handler
+        var myPosition=0
     }
 
     private lateinit var adapter: mainAdapter
@@ -38,7 +38,6 @@ class MainFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handler= Handler()
         initView()
         doLogic()
         doRefresh()
