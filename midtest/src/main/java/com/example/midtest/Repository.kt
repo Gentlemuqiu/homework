@@ -7,6 +7,14 @@ import kotlin.coroutines.CoroutineContext
 
 object Repository {
 
+    fun getMessage(data :String)= fire(Dispatchers.IO){
+        val messageResponse=KnowNetWork.getMessage(data)
+        run{
+            val message=messageResponse
+            Result.success(message)
+        }
+    }
+
     fun latestNew() = fire(Dispatchers.IO){
         val latestResponse = KnowNetWork.latestNew()
         run {

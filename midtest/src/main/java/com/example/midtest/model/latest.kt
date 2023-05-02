@@ -16,7 +16,7 @@ data class latest(
         @SerializedName("hint")
         val hint: String, // 法小喵 · 4 分钟阅读
         @SerializedName("id")
-        val id: Int, // 9760754
+        val id: String, // 9760754
         @SerializedName("image_hue")
         val imageHue: String, // 0xb39168
         @SerializedName("images")
@@ -35,7 +35,7 @@ data class latest(
         @SerializedName("hint")
         val hint: String, // 作者 / 今夕何夕
         @SerializedName("id")
-        val id: Int, // 9760718
+        val id: String, // 9760718
         @SerializedName("image")
         val image: String, // https://picx.zhimg.com/v2-5e21ac17e9c4266261e28282433de0b2.jpg?source=8673f162
         @SerializedName("image_hue")

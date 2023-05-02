@@ -55,7 +55,7 @@ class againFragment : Fragment() {
     }
 
     private fun loadAfter() {
-        mBinding.recyclerView.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+        mBinding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动
             var isSlidingToLast = false
             @RequiresApi(Build.VERSION_CODES.O)

@@ -14,7 +14,7 @@ data class before(
         @SerializedName("hint")
         val hint: String, // 思思安 · 8 分钟阅读
         @SerializedName("id")
-        val id: Int, // 9759918
+        val id: String, // 9759918
         @SerializedName("image_hue")
         val imageHue: String, // 0x2e3022
         @SerializedName("images")

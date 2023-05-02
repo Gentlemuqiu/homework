@@ -1,0 +1,52 @@
+package com.example.midtest.util
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
+import com.example.midtest.adapter.webAdapter
+import com.example.midtest.databinding.ActivityWebBinding
+
+
+class WebActivity : AppCompatActivity() {
+    private val mBinding by lazy {
+        ActivityWebBinding.inflate(layoutInflater)
+    }
+
+    private lateinit var adapter: webAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(mBinding.root)
+        val data = intent.getStringArrayListExtra("story")
+        val id = intent.getStringArrayListExtra("id")
+        adapter = webAdapter(this, data!!)
+        mBinding.vp2WebView.adapter = adapter
+        var response = 0
+        //设置页面改变监听,然后获取对应文章的id
+        mBinding.vp2WebView.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                response = position
+                super.onPageSelected(position)
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
+        })
+        mBinding.talk.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, MessageActivity::class.java)
+            intent.putExtra("response", id!![response])
+            this.startActivity(intent)
+        })
+    }
+}

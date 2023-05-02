@@ -11,6 +11,9 @@
         android:theme="@style/Theme.Homework"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".util.MessageActivity"
+            android:exported="false" />
+        <activity
             android:name=".util.WebActivity"
             android:exported="false" />
         <activity

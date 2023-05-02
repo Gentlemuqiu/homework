@@ -16,23 +16,29 @@ import com.example.midtest.util.WebActivity
 
 class beforeAdapter(private val fragment: Fragment, private val data: ArrayList<before.Story>) :
     RecyclerView.Adapter<beforeAdapter.ViewHolder>() {
-    inner  class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.nowImage)
         val title: TextView = view.findViewById(R.id.nowTitle)
         val hint: TextView = view.findViewById(R.id.nowHint)
-        val skip : LinearLayout=view.findViewById(R.id.Skip)
+        val skip: LinearLayout = view.findViewById(R.id.Skip)
+
         init {
             skip.setOnClickListener(View.OnClickListener {
                 val intent = Intent(fragment.context, WebActivity::class.java)
                 val list = ArrayList<String>()
+                val list1 = ArrayList<String>()
                 for (i in 0 until data.size) {
                     list.add(data[i].url)
+                    list1.add(data[i].id)
                 }
+
                 intent.putExtra("story", list)
+                intent.putExtra("id",list1)
                 view.context.startActivity(intent)
             })
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(fragment.context).inflate(R.layout.now_item, parent, false)
         return ViewHolder(view)
