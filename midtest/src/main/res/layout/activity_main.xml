@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--最外用了卡片布局,以便实现Toolbar和RecyclerView的联动-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <!--卡片布局也相当于FrameLayout, 设置了AppBarLayout就可以避免rv和toolbar的遮挡情况。 其实AppLayout也就相当于了一个LinearLayout-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+   <!--设置自己定义的ToolBar-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -16,15 +17,16 @@
             android:background="@color/material_dynamic_primary90"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
+        <!--这个设置可以实现联动rv和toolbar-->
     </com.google.android.material.appbar.AppBarLayout>
-
+<!--设置抽屉菜单-->
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/dl_left"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
+<!--这里防止FragmentHost，name命名要规范， layout——behavior记得设置，这样可以实现recyclerview和toolbar的联动。-->
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/know_navigation"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -33,14 +35,14 @@
             app:defaultNavHost="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:navGraph="@navigation/know_navigation" />
-
+<!--在这里设置了后，就可以填充Fragment里的东西了-->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nv_menu"
             android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/layout_school"
-            app:menu="@menu/drawermenu" />
+            app:menu="@menu/drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

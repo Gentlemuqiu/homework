@@ -2,62 +2,66 @@ package com.example.midtest.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.midtest.adapter.mainAdapter
+import com.example.midtest.adapter.MainAdapter
 import com.example.midtest.databinding.FragmentMainBinding
 import com.example.midtest.viewModel.LatestViewModel
 
 
 class MainFragment : Fragment() {
-    private val latestViewModel by lazy { ViewModelProvider(this).get(LatestViewModel::class.java) }
+    private val latestViewModel by lazy { ViewModelProvider(this)[LatestViewModel::class.java] }
     private val mBinding: FragmentMainBinding by lazy {
         FragmentMainBinding.inflate(layoutInflater)
     }
-   //放到全据变量 ,
-    companion object {
-        var myPosition=0
-    }
+    private lateinit var adapter: MainAdapter
 
-    private lateinit var adapter: mainAdapter
+    //放到全局变量 , 以便设置位置。
+    companion object {
+        var myPosition = 0
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return mBinding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //加载布局
         initView()
+        //执行逻辑处理
         doLogic()
+        //执行刷新操作
         doRefresh()
     }
 
     private fun initView() {
         mBinding.rvMain.layoutManager = LinearLayoutManager(context)
-        adapter = mainAdapter(this, latestViewModel.latestList, latestViewModel.latestList1)
+        adapter = MainAdapter(this, latestViewModel.latestList, latestViewModel.latestList1)
     }
 
     private fun doRefresh() {
-       mBinding.swipeRefresh.setOnRefreshListener {
-                doLogic()
-           mBinding.swipeRefresh.isRefreshing=false
-       }
+        mBinding.swipeRefresh.setOnRefreshListener {
+            //刷新时,再次请求一次数据
+            doLogic()
+            //将刷新状态取消
+            mBinding.swipeRefresh.isRefreshing = false
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun doLogic() {
-        latestViewModel.todayLiveData.observe(viewLifecycleOwner, Observer { result ->
+        //对数据进行观察
+        latestViewModel.todayLiveData.observe(viewLifecycleOwner) { result ->
             val data = result.getOrNull()
             if (data != null) {
                 latestViewModel.latestList.clear()
@@ -69,7 +73,7 @@ class MainFragment : Fragment() {
                 Toast.makeText(context, "未能查阅到任何信息", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
-        })
+        }
         mBinding.rvMain.adapter = adapter
     }
 }

@@ -8,8 +8,8 @@ import android.webkit.WebView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.midtest.R
 
-class webAdapter(private val context: Context, private val data: List<String>) :
-    RecyclerView.Adapter<webAdapter.ViewHolder>() {
+class WebAdapter(private val context: Context, private val data: List<String>) :
+    RecyclerView.Adapter<WebAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
            val webView :WebView=view.findViewById(R.id.webView)
     }

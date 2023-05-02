@@ -14,8 +14,8 @@ import com.example.midtest.R
 import com.example.midtest.model.before
 import com.example.midtest.util.WebActivity
 
-class beforeAdapter(private val fragment: Fragment, private val data: ArrayList<before.Story>) :
-    RecyclerView.Adapter<beforeAdapter.ViewHolder>() {
+class BeforeAdapter(private val fragment: Fragment, private val data: ArrayList<before.Story>) :
+    RecyclerView.Adapter<BeforeAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.nowImage)
         val title: TextView = view.findViewById(R.id.nowTitle)
@@ -23,7 +23,7 @@ class beforeAdapter(private val fragment: Fragment, private val data: ArrayList<
         val skip: LinearLayout = view.findViewById(R.id.Skip)
 
         init {
-            skip.setOnClickListener(View.OnClickListener {
+            skip.setOnClickListener {
                 val intent = Intent(fragment.context, WebActivity::class.java)
                 val list = ArrayList<String>()
                 val list1 = ArrayList<String>()
@@ -33,9 +33,9 @@ class beforeAdapter(private val fragment: Fragment, private val data: ArrayList<
                 }
 
                 intent.putExtra("story", list)
-                intent.putExtra("id",list1)
+                intent.putExtra("id", list1)
                 view.context.startActivity(intent)
-            })
+            }
         }
     }
 

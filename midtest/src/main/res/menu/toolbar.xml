@@ -4,11 +4,11 @@
     <item
         android:id="@+id/day"
         android:icon="@drawable/baseline_light_mode_24"
-        android:title="日间模式"
-        app:showAsAction="always"/>
+        android:title="@string/sun"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/night"
         android:icon="@drawable/baseline_bedtime_24"
-        android:title="夜间模式"
+        android:title="@string/night"
         app:showAsAction="always"/>
 </menu>

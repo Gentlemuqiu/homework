@@ -3,36 +3,31 @@ package com.example.midtest.fragment
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.midtest.adapter.beforeAdapter
+import com.example.midtest.adapter.BeforeAdapter
 import com.example.midtest.databinding.FragmentAgainBinding
 import com.example.midtest.util.Time
 import com.example.midtest.viewModel.BeforeViewModel
-import kotlin.math.log
 
 
-class againFragment : Fragment() {
+class AgainFragment : Fragment() {
     private val mBinding by lazy {
         FragmentAgainBinding.inflate(layoutInflater)
     }
-    val viewModel by lazy { ViewModelProvider(this).get(BeforeViewModel::class.java) }
-    private lateinit var adapter: beforeAdapter
-    var day = 0
+    private val viewModel by lazy { ViewModelProvider(this)[BeforeViewModel::class.java] }
+    private lateinit var adapter: BeforeAdapter
+    private var day = 0
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         return mBinding.root
     }
 
@@ -40,21 +35,23 @@ class againFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataAfter()
-        adapter= beforeAdapter(this,viewModel.beforeList)
-        mBinding.recyclerView.adapter=adapter
+        adapter = BeforeAdapter(this, viewModel.beforeList)
+        mBinding.recyclerView.adapter = adapter
         loadBefore()
         loadAfter()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun loadBefore() {
-         mBinding.swipeRefresh.setOnRefreshListener {
-             getDataBefore()
-             mBinding.swipeRefresh.isRefreshing=false
+//         下拉请求之前的数据，然后将刷新状态关闭
+        mBinding.swipeRefresh.setOnRefreshListener {
+            getDataBefore()
+            mBinding.swipeRefresh.isRefreshing = false
         }
     }
 
     private fun loadAfter() {
+//        这里设置滑动事件监听，用来判断是否滑动到最后一页
         mBinding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动
             var isSlidingToLast = false
@@ -68,13 +65,12 @@ class againFragment : Fragment() {
                     //获取最后一个完全显示的ItemPosition ,角标值
                     val lastVisibleItem = manager!!.findLastCompletelyVisibleItemPosition()
                     //所有条目,数量值
-                    val totalItemCount = manager!!.itemCount
+                    val totalItemCount = manager.itemCount
                     // 判断是否滚动到底部，并且是向下滚动
                     if (lastVisibleItem == totalItemCount - 1 && isSlidingToLast) {
                         //加载更多功能的代码
                         getDataAfter()
                         Toast.makeText(activity, "上拉加载成功", Toast.LENGTH_SHORT).show()
-
                     }
                 }
             }
@@ -84,11 +80,7 @@ class againFragment : Fragment() {
                 //dx用来判断横向滑动方向，dy用来判断纵向滑动方向
                 //dx>0:向右滑动,dx<0:向左滑动
                 //dy>0:向下滑动,dy<0:向上滑动
-                isSlidingToLast = if (dy > 0) {
-                    true
-                } else {
-                    false
-                }
+                isSlidingToLast = dy > 0
             }
         })
     }
@@ -99,42 +91,40 @@ class againFragment : Fragment() {
         viewModel.beforeNew(Time.getYesterday(day.toLong()))
         day++
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
-        viewModel.beforeLiveData.observe(viewLifecycleOwner, Observer { result ->
-            val story=result.getOrNull()
-            if (story!=null){
+        viewModel.beforeLiveData.observe(viewLifecycleOwner) { result ->
+            val story = result.getOrNull()
+            if (story != null) {
                 viewModel.beforeList.clear()
                 viewModel.beforeList.addAll(story.stories)
                 adapter.notifyDataSetChanged()
-            }else {
+            } else {
                 Toast.makeText(activity, "未能查阅到任何信息", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
-        })
+        }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("NotifyDataSetChanged")
     private fun getDataBefore() {
         --day
-        Log.d("hui", "getDataBefore: ${day}")
-        if(day<0){
-            Toast.makeText(activity,"已到达最顶端了",Toast.LENGTH_SHORT).show()
-            Log.d("hui", "getDataBefore: ${day}")
+        if (day < 0) {
+            Toast.makeText(activity, "已到达最顶端了", Toast.LENGTH_SHORT).show()
             day++
             return
         }
         viewModel.beforeNew(Time.getYesterday(day.toLong()))
-        Log.d("hui", "getData: ${Time.getYesterday(day.toLong())} ")
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
-        viewModel.beforeLiveData.observe(viewLifecycleOwner, Observer { result ->
-            val story=result.getOrNull()
-            if (story!=null){
+        viewModel.beforeLiveData.observe(viewLifecycleOwner) { result ->
+            val story = result.getOrNull()
+            if (story != null) {
                 viewModel.beforeList.clear()
                 viewModel.beforeList.addAll(story.stories)
                 adapter.notifyDataSetChanged()
-            }else {
+            } else {
                 Toast.makeText(activity, "未能查阅到任何信息", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
-        })
+        }
     }
 }

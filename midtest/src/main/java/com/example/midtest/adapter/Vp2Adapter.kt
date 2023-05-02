@@ -18,8 +18,8 @@ import com.example.midtest.model.latest
 import com.example.midtest.util.Time
 import com.example.midtest.util.WebActivity
 
-class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<latest.TopStory>) :
-    RecyclerView.Adapter<vp2Adapter.ViewHolder>() {
+class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<latest.TopStory>) :
+    RecyclerView.Adapter<Vp2Adapter.ViewHolder>() {
     @RequiresApi(Build.VERSION_CODES.O)
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.latest_image)
@@ -30,7 +30,7 @@ class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<lat
 
         init {
             time.text = Time.dataString
-            rl.setOnClickListener(View.OnClickListener {
+            rl.setOnClickListener {
                 val intent = Intent(fragment.context, WebActivity::class.java)
                 val list = ArrayList<String>()
                 val list1 = ArrayList<String>()
@@ -39,9 +39,9 @@ class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<lat
                     list1.add(data[i].id)
                 }
                 intent.putExtra("story", list)
-                intent.putExtra("id",list1)
+                intent.putExtra("id", list1)
                 view.context.startActivity(intent)
-            })
+            }
         }
     }
 

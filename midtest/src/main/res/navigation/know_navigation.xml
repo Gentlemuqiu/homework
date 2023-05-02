@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_main"/>
     <fragment
         android:id="@+id/beforeFragment3"
-        android:name="com.example.midtest.fragment.againFragment"
+        android:name="com.example.midtest.fragment.AgainFragment"
         android:label="fragment_before"
         tools:layout="@layout/fragment_again" />
 </navigation>

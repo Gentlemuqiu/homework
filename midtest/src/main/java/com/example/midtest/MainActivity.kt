@@ -17,25 +17,30 @@ class MainActivity : AppCompatActivity() {
     private val mBinding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    lateinit var navigationView: NavigationView
-    lateinit var mActionBarDrawerToggle: ActionBarDrawerToggle
+
+    private lateinit var navigationView: NavigationView
+    private lateinit var mActionBarDrawerToggle: ActionBarDrawerToggle
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
+        //设置菜单
         doMenu()
+        //设置抽屉菜单
         doDraw()
     }
 
 
     private fun doDraw() {
+        //获得NavHostFragment
         val host: NavHostFragment =
             supportFragmentManager.findFragmentById(R.id.know_navigation) as NavHostFragment
+        //获得容器
         val navController = host.navController
         navigationView = mBinding.nvMenu
+         //将navigation里的东西填充到navController里
         navigationView.setupWithNavController(navController)
-
         //将toolbar和draw关联起来
         mActionBarDrawerToggle = ActionBarDrawerToggle(
             this,
@@ -51,14 +56,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doMenu() {
+        //放置标题栏
         setSupportActionBar(mBinding.toolbar)
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-        }
+        //设置左上角的小东西可见
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        //填充菜单
         menuInflater.inflate(R.menu.toolbar, menu)
         return true
     }
@@ -67,10 +73,13 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.day -> {       //设置日间模式
                 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+                //设置颜色
                 mBinding.toolbar.setBackgroundResource(com.google.android.material.R.color.material_dynamic_primary90)
             }
-            R.id.night -> {//设置夜间模式
+            R.id.night -> {
+                //设置标题栏颜色
                 mBinding.toolbar.setBackgroundResource(com.bumptech.glide.R.color.material_blue_grey_800)
+                //设置夜间模式
                 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
             }
 
@@ -78,17 +87,4 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
-
-    /* override fun onAttachedToWindow() {
-         super.onAttachedToWindow()
-         handler.post(mLooperTask)
-     }
-
-     override fun onDetachedFromWindow() {
-         super.onDetachedFromWindow()
-         //取消循环
-         handler.removeCallbacks(mLooperTask)
-     }*/
-
 }
