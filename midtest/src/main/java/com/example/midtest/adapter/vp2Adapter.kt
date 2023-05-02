@@ -21,7 +21,7 @@ class vp2Adapter(private val fragment: Fragment, private val data: ArrayList<lat
         val image: ImageView = view.findViewById(R.id.latest_image)
         val title: TextView = view.findViewById(R.id.title)
         val hint: TextView = view.findViewById(R.id.hint)
-       val time :TextView=view.findViewById(R.id.time)
+        val time :TextView=view.findViewById(R.id.time)
         init {
         time.text= Time.dataString
         }

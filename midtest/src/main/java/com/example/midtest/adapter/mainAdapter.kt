@@ -1,10 +1,11 @@
 package com.example.midtest.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.get
@@ -12,10 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.midtest.MainActivity
 import com.example.midtest.R
 import com.example.midtest.fragment.MainFragment.Companion.handler
 import com.example.midtest.model.latest
+import com.example.midtest.util.WebActivity
 
 class mainAdapter(
     private val fragment: Fragment,
@@ -33,6 +34,9 @@ class mainAdapter(
         val vp2Adapter = vp2Adapter(fragment, data)
         val vp2 = view.findViewById<ViewPager2>(R.id.vp2)
         val manyPoint = view.findViewById<LinearLayout>(R.id.manyPoint)
+
+
+
     }
 
     class nowViewHolder(view: View, fragment: Fragment, data1: ArrayList<latest.Story>) :
