@@ -10,7 +10,9 @@ import kotlin.coroutines.suspendCoroutine
 
 object KnowNetWork {
     private val latestService = ServiceCreator.create<LatestService>()
+    private val beforeService = ServiceCreator.create<BeforeService>()
     suspend fun latestNew() = latestService.latestNew().await()
+    suspend fun beforeNew(date: String) = beforeService.getBefore(date).await()
 
     //使用协程简化回调
     private suspend fun <T> Call<T>.await(): T {

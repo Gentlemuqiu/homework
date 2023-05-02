@@ -9,14 +9,10 @@
         android:id="@+id/mainFragment2"
         android:name="com.example.midtest.fragment.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment2_to_beforeFragment3"
-            app:destination="@id/beforeFragment3" />
-    </fragment>
+        tools:layout="@layout/fragment_main"/>
     <fragment
         android:id="@+id/beforeFragment3"
-        android:name="com.example.midtest.fragment.BeforeFragment"
+        android:name="com.example.midtest.fragment.againFragment"
         android:label="fragment_before"
-        tools:layout="@layout/fragment_before" />
+        tools:layout="@layout/fragment_again" />
 </navigation>

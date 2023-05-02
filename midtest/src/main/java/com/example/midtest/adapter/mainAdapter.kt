@@ -74,7 +74,6 @@ class mainAdapter(
             holder.vp2.adapter = holder.vp2Adapter
             insertPoint(holder)
             doCycle(holder)
-
         } else if (holder is nowViewHolder) {
             holder.nowRecyclerView.adapter = holder.nowAdapter
             holder.nowRecyclerView.layoutManager = LinearLayoutManager(fragment.context)

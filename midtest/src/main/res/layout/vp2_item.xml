@@ -38,6 +38,18 @@
             android:ellipsize="end"
             android:textColor="#FAF8F8"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="280dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:ellipsize="end"
+            android:textColor="#FAF8F8"
+            android:textSize="11sp" />
     </RelativeLayout>
 
 

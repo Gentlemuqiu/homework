@@ -1,15 +1,23 @@
 package com.example.midtest
 
+import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.midtest.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     private val mBinding: ActivityMainBinding by lazy {
@@ -18,12 +26,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var navigationView: NavigationView
     lateinit var mActionBarDrawerToggle: ActionBarDrawerToggle
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
         doMenu()
         doDraw()
     }
+
 
     private fun doDraw() {
         val host: NavHostFragment =

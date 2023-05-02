@@ -42,6 +42,7 @@
             android:layout_gravity="start"
             app:headerLayout="@layout/layout_school"
             app:menu="@menu/drawermenu" />
+
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

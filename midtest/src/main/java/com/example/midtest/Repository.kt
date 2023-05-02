@@ -15,7 +15,17 @@ object Repository {
         }
     }
 
-    private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
+    fun beforeNew(date: String)= fire(Dispatchers.IO){
+        val beforeResponse =KnowNetWork.beforeNew(date)
+        run {
+            val before = beforeResponse
+            Result.success(before)
+        }
+    }
+
+
+
+     fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
         liveData<Result<T>>(context) {
             val result = try {
                 block()
