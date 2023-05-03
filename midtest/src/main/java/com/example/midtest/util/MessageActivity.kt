@@ -1,9 +1,9 @@
 package com.example.midtest.util
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.midtest.adapter.MessageAdapter
@@ -17,6 +17,7 @@ class MessageActivity : AppCompatActivity() {
         ActivityMessageBinding.inflate(layoutInflater)
     }
     private lateinit var adapter: MessageAdapter
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
@@ -24,7 +25,7 @@ class MessageActivity : AppCompatActivity() {
         viewModel.message(response.toString())
         adapter= MessageAdapter(this,viewModel.messageList)
         mBinding.rvMessage.layoutManager = LinearLayoutManager(this)
-        viewModel.messageLiveData.observe(this, Observer { result ->
+        viewModel.messageLiveData.observe(this) { result ->
             val comment = result.getOrNull()
             if (comment != null) {
                 viewModel.messageList.clear()
@@ -34,7 +35,7 @@ class MessageActivity : AppCompatActivity() {
                 Toast.makeText(this, "未能查阅到任何信息", Toast.LENGTH_SHORT).show()
                 result.exceptionOrNull()?.printStackTrace()
             }
-        })
+        }
         mBinding.rvMessage.adapter = adapter
     }
 }

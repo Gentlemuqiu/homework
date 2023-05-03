@@ -74,11 +74,11 @@
 
 #### 2.体系
 
-采用recyclerView的嵌套使用，先在fragment中使用一次recylcerView，然后recyclerView中的每一条目中令含一个RecyclerView。
+采用recyclerView的嵌套使用，先在fragment中使用一次recyclerView，然后recyclerView中的每一条目中令含一个RecyclerView。
 
 #### 3.导航
 
-利用两个平行的RecylclerView完成，在构造左边的Adapter是将右边的RecyclerView传入，从而实现当点击左侧对应导航时，出现导航下的分类。点击具体分类后跳转到相应的页面。
+利用两个平行的RecyclerView完成，在构造左边的Adapter是将右边的RecyclerView传入，从而实现当点击左侧对应导航时，出现导航下的分类。点击具体分类后跳转到相应的页面。
 
 #### 4.项目
 
@@ -123,8 +123,13 @@
 ## App功能展示
 
 ![1675175288177](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175288177.gif)
-
-![1675175610448](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175610448.gif)![1675175784176](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175784176.gif)![1675175916843](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175916843.gif)![1675176116188](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176116188.gif)![1675176156281](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176156281.gif)![1675176326889](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176326889.gif)![1675176404914](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176404914.gif)
+![1675175610448](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175610448.gif)
+![1675175784176](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175784176.gif)
+![1675175916843](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175916843.gif)
+![1675176116188](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176116188.gif)
+![1675176156281](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176156281.gif)
+![1675176326889](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176326889.gif)
+![1675176404914](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176404914.gif)
 
 ## 技术亮点
 
@@ -174,3 +179,59 @@
 8. 还有好多好多...... 不足的地方太多了，在此便不一 一赘述了
 
 ​      
+###知乎日报的功能:
+
+1.顶部Banner与日期
+
+2.上拉加载与下拉刷新
+
+3.点击查看新闻详情,左右滑动切换下一篇(上一篇)新闻
+
+4.查看评论与分享功能
+
+5.实现夜间功能
+
+6.协调者布局实现Toolbar和RV联动
+
+<!--第7个我们努力去实现了,也花了好多时间,但是还是没能成功-->
+
+### 主要功能实现思路
+
+1.  顶部banner 使用了ViewPager2来装载图片内容，同时实现了轮播： 在viewPager2底部设置了一个水平水平的Linearlayout 然后 在其中设置小点点  设置小点点的数量为itemCount 然后给viewpager2注册页面选择监听当滑倒对应位置时设置变红。同时利用Handler每隔3秒自动循环跳动到下一次。
+
+2.  下拉刷新和上拉加载：下拉刷新 这个比较简单了 利用一个SwipeRefreshLayout布局便可实现，而上拉加载，这里我的实现是通过addOnScrollListener监听是否滑动到最后一页，如果划到了，那么进行重新进行网罗请求拿到更早的数据。
+
+3.  左右划页：利用viewPager2实现，为之前的各种布局设置有点击事件监听，将数据传递给webActiviy中，由webActivity进行解析放到ViewPager2中
+4.  评论的话，直接拿到webActivity传来的id然后解析就行。 分享可以调用系统的功能实现隐式跳转
+5.  夜间功能：value/night和value里设置noActionBar,然后在activity里切换。
+6.  使用app:layout_scrollFlags="scroll|enterAlways|snap" />属性来实现
+
+###不同页面的实现思路
+
+MainActivity中引用了卡片布局、toolbar、AppbarLayout、和抽屉菜单。
+
+利用toolbar中的layout_crollFlags实现了rv和toolbar的联动。 抽屉菜单和navigation进行了结合使用。
+
+抽屉菜单中设置了两个fragment布局。
+
+mainFragment中设置recyclerview，recyclerviw中嵌套使用recyclerview和viewPager2
+
+againFragment中简单的设置了一个卡片布局，里面有之前的各个条目信息
+
+webActivity中同样设置一个ViewPage2 这样便可实现滑动切换
+
+### 动态GIF图
+
+之前寒假上传的时候便看不了，这次就不上传了吧。
+
+###技术亮点
+
+用到了协程，mvvm框架。 使用Handler自定义了轮播图。实现了较为好看的界面。
+
+###心得体会
+
+之前其实看了挺多书的，但是一直没有进行实操，这次一进行实操，就感觉好多东西自己理解的并非那么透彻，以后还是得多敲代码。
+
+### 待提升的地方
+
+fragment的用法，rxjava3的使用。自定义view的学习，代码命名规范，ListAdapter的应用，paging等的jetBrain的使用，flow流的正确使用，断网处理。

@@ -10,35 +10,32 @@ object Repository {
     fun getMessage(data :String)= fire(Dispatchers.IO){
         val messageResponse=KnowNetWork.getMessage(data)
         run{
-            val message=messageResponse
-            Result.success(message)
+            Result.success(messageResponse)
         }
     }
 
     fun latestNew() = fire(Dispatchers.IO){
         val latestResponse = KnowNetWork.latestNew()
         run {
-            val latest = latestResponse
-            Result.success(latest)
+            Result.success(latestResponse)
         }
     }
 
     fun beforeNew(date: String)= fire(Dispatchers.IO){
         val beforeResponse =KnowNetWork.beforeNew(date)
         run {
-            val before = beforeResponse
-            Result.success(before)
+            Result.success(beforeResponse)
         }
     }
 
 
 
-     fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
-        liveData<Result<T>>(context) {
+     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
+        liveData(context) {
             val result = try {
                 block()
             } catch (e: Exception) {
-                Result.failure<T>(e)
+                Result.failure(e)
             }
             emit(result)
         }
