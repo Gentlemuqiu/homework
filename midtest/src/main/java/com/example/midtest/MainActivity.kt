@@ -74,11 +74,11 @@ class MainActivity : AppCompatActivity() {
             R.id.day -> {       //设置日间模式
                 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
                 //设置颜色
-                mBinding.toolbar.setBackgroundResource(com.google.android.material.R.color.material_dynamic_primary90)
+                mBinding.toolbar.setBackgroundResource(R.color.color_90)
             }
             R.id.night -> {
                 //设置标题栏颜色
-                mBinding.toolbar.setBackgroundResource(com.bumptech.glide.R.color.material_blue_grey_800)
+                mBinding.toolbar.setBackgroundResource(R.color.color_black_90)
                 //设置夜间模式
                 delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
             }

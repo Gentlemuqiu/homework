@@ -25,6 +25,7 @@ class AgainFragment : Fragment() {
     private val viewModel by lazy { ViewModelProvider(this)[BeforeViewModel::class.java] }
     private lateinit var adapter: BeforeAdapter
     private var day = 0
+    private var day2=0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -44,7 +45,7 @@ class AgainFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun loadBefore() {
 //         下拉请求之前的数据，然后将刷新状态关闭
-        mBinding.swipeRefresh.setOnRefreshListener {
+             mBinding.swipeRefresh.setOnRefreshListener {
             getDataBefore()
             mBinding.swipeRefresh.isRefreshing = false
         }
@@ -55,6 +56,7 @@ class AgainFragment : Fragment() {
         mBinding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动
             var isSlidingToLast = false
+
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -89,6 +91,7 @@ class AgainFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getDataAfter() {
         viewModel.beforeNew(Time.getYesterday(day.toLong()))
+        day2=day
         day++
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.beforeLiveData.observe(viewLifecycleOwner) { result ->
@@ -107,13 +110,15 @@ class AgainFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("NotifyDataSetChanged")
     private fun getDataBefore() {
-        --day
-        if (day < 0) {
+        day2--
+        day=day2+1
+        if (day2 < 0) {
             Toast.makeText(activity, "已到达最顶端了", Toast.LENGTH_SHORT).show()
-            day++
+            day=0
+            day2=0
             return
         }
-        viewModel.beforeNew(Time.getYesterday(day.toLong()))
+        viewModel.beforeNew(Time.getYesterday(day2.toLong()))
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.beforeLiveData.observe(viewLifecycleOwner) { result ->
             val story = result.getOrNull()

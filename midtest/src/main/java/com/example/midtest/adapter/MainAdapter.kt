@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.midtest.R
-import com.example.midtest.fragment.MainFragment
 import com.example.midtest.model.latest
 
 class MainAdapter(
@@ -30,8 +29,7 @@ class MainAdapter(
     var index = 0
 
     //定义一个MyHandler
-    @SuppressLint("HandlerLeak")
-    inner class MyHandler : Handler(Looper.myLooper()!!)
+    class MyHandler : Handler(Looper.myLooper()!!)
 
     @SuppressLint("ClickableViewAccessibility")
     inner class ImageViewHolder(view: View, data: ArrayList<latest.TopStory>, fragment: Fragment) :
@@ -52,10 +50,12 @@ class MainAdapter(
                         } else {
                             point.setBackgroundResource(R.drawable.shape_point_selected)
                         }
-                        MainFragment.myPosition = position
                     }
                 }
             })
+            doCycle(vp2)
+            //手动设置第一次循环
+            handler.postDelayed(mLooperTask, 3000)
         }
     }
     class NowViewHolder(view: View, fragment: Fragment, data1: ArrayList<latest.Story>) :
@@ -100,24 +100,21 @@ class MainAdapter(
             holder.vp2.adapter = holder.vp2Adapter
             //有了图片后再插入点
             insertPoint(holder)
-            //做循环
-            doCycle(holder)
-            //手动设置第一次循环
-            handler.postDelayed(mLooperTask, 3000)
+
         } else if (holder is NowViewHolder) {
             holder.nowRecyclerView.adapter = holder.nowAdapter
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun doCycle(holder: ImageViewHolder) {
+    private fun doCycle(vp2: ViewPager2) {
         //套娃循环
         mLooperTask = object : Runnable {
             override fun run() {
                 //切换viewPager2里的图片到下一个
                 if (index % data.size == 0)
-                    holder.vp2.setCurrentItem(index % data.size, false)
-                else holder.vp2.setCurrentItem(index % data.size, true)
+                    vp2.setCurrentItem(index % data.size, false)
+                else vp2.setCurrentItem(index % data.size, true)
                 //第一次时Runnable还没构建完成所以需要手动handle下
                 handler.postDelayed(this, 3000)
                 index++

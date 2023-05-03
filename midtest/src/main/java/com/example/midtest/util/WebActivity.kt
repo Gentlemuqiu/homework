@@ -20,8 +20,7 @@ class WebActivity : AppCompatActivity() {
         val id = intent.getStringArrayListExtra("id")
         adapter = WebAdapter(this, data!!)
         mBinding.vp2WebView.adapter = adapter
-        mBinding.vp2WebView.setCurrentItem(MainFragment.myPosition,false)
-//        设置这个的目的是为了传递给评论，让他知道请求的是哪个文章的评论
+   //   设置这个的目的是为了传递给评论，让他知道请求的是哪个文章的评论
         var response = 0
         //设置页面改变监听,然后获取对应文章的id
         mBinding.vp2WebView.registerOnPageChangeCallback(object :

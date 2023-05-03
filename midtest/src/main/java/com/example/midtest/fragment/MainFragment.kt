@@ -21,10 +21,6 @@ class MainFragment : Fragment() {
     }
     private lateinit var adapter: MainAdapter
 
-    //放到全局变量 , 以便设置位置。
-    companion object {
-        var myPosition = 0
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
