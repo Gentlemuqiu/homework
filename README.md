@@ -120,17 +120,6 @@
 
 次页面：实现侧滑界面，即在Activity中设置DrawerLayout，而在DrawerLayout中设置FragemntContainerView以便收纳多个Fragemnt而后设置Nav导航。并设置当点击某一个Nav弹出相应的Fragement。并收回DrawerLayout
 
-## App功能展示
-
-![1675175288177](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175288177.gif)
-![1675175610448](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175610448.gif)
-![1675175784176](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175784176.gif)
-![1675175916843](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675175916843.gif)
-![1675176116188](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176116188.gif)
-![1675176156281](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176156281.gif)
-![1675176326889](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176326889.gif)
-![1675176404914](C:\Users\Gentle\Documents\Tencent Files\1627812101\FileRecv\MobileFile\1675176404914.gif)
-
 ## 技术亮点
 
 1. 启动页采用viewPager及RadioGroup组合
@@ -146,7 +135,7 @@
 
 ## 心得体会
 
-###1. 问题
+### 1. 问题
 
 ​          说实话，挺不容易的。遇到的问题也挺多，无数次想要放弃。 其实移动上半部分java的学习还是挺顺利的，也给了我莫大的信心，有着继续完成的动力。可随之而来的就是一个巨大的问题 android开始了，可是我的android studio一直出现问题。（因为我是比较早就学完java了，所以比较心急，在学长android studio下载教程发布之前，就去下载了。）我的android studio一直不能用，等到学长发完下载教程，我又去装，还是下载不了（可能是之前下载后设置有问题）。我当时要崩溃了。看到别人都已经开始进度了，我却还停留在原地，最后，我恨下了决心，重装了一次系统，再次下载才解决了这个问题。
 
@@ -160,7 +149,7 @@
 
 ​         最后到了十二月中旬，也就是寒假大作业布置前后，我拿到了我的手机，正式开始android学习！
 
-###2. 收获
+### 2. 收获
 
 ​        我觉得首先提升的就是自己的抗击打能力和继续下去的信心。
 
@@ -179,7 +168,7 @@
 8. 还有好多好多...... 不足的地方太多了，在此便不一 一赘述了
 
 ​      
-###知乎日报的功能:
+### 知乎日报的功能:
 
 1.顶部Banner与日期
 
@@ -206,7 +195,7 @@
 5.  夜间功能：value/night和value里设置noActionBar,然后在activity里切换。
 6.  使用app:layout_scrollFlags="scroll|enterAlways|snap" />属性来实现
 
-###不同页面的实现思路
+### 不同页面的实现思路
 
 MainActivity中引用了卡片布局、toolbar、AppbarLayout、和抽屉菜单。
 
@@ -224,11 +213,11 @@ webActivity中同样设置一个ViewPage2 这样便可实现滑动切换
 
 之前寒假上传的时候便看不了，这次就不上传了吧。
 
-###技术亮点
+### 技术亮点
 
 用到了协程，mvvm框架。 使用Handler自定义了轮播图。实现了较为好看的界面。
 
-###心得体会
+### 心得体会
 
 之前其实看了挺多书的，但是一直没有进行实操，这次一进行实操，就感觉好多东西自己理解的并非那么透彻，以后还是得多敲代码。
 
